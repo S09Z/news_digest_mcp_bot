@@ -40,6 +40,10 @@ news-digest-mcp-bot/
 | `THENEWS_API_KEY`     | API Key สำหรับ TheNewsAPI.com                |
 | `DISCORD_WEBHOOK_URL` | URL สำหรับส่ง Webhook ไป Discord           |
 | `HF_API_TOKEN`        | Token สำหรับเรียก Huggingface Inference API |
+| `PINECONE_API_KEY`    | API Key สำหรับ Pinecone                      |
+| `PINECONE_ENV`        | Environment สำหรับ Pinecone                  |
+| `VECTOR_DB_HOST`      | Host สำหรับ Vector DB                       |
+| `VECTOR_DB_PORT`      | Port สำหรับ Vector DB                       |
 
 สามารถตั้งค่า ENV เหล่านี้ได้ผ่านไฟล์ `.env` (ถ้าใช้ `python-dotenv`) หรือเซ็ตในระบบปฏิบัติการ
 
