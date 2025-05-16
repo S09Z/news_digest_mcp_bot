@@ -1,0 +1,35 @@
+version: "3.8"
+
+services:
+  news-digest-bot:
+    build: .
+    container_name: news_digest_mcp_bot
+    environment:
+      - THENEWS_API_KEY=${THENEWS_API_KEY}
+      - HF_API_TOKEN=${HF_API_TOKEN}
+      - DISCORD_WEBHOOK_URL=${DISCORD_WEBHOOK_URL}
+      - VECTOR_DB_HOST=milvus
+      - VECTOR_DB_PORT=19530
+    depends_on:
+      - milvus
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  milvus:
+    image: milvusdb/milvus:v2.2.7
+    container_name: milvus_vector_db
+    ports:
+      - "19530:19530"   # gRPC port (client connect)
+      - "19121:19121"   # HTTP RESTful API (optional)
+    volumes:
+      - milvus_data:/var/lib/milvus
+    environment:
+      TZ: Asia/Bangkok
+    restart: unless-stopped
+
+volumes:
+  milvus_data:
