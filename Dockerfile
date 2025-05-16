@@ -1,20 +1,25 @@
-# ใช้ official Python 3.10 image
 FROM python:3.10-slim
 
-# ตั้ง working directory
+# Set environment variables
+ENV POETRY_VERSION=1.7.1 \
+    POETRY_HOME="/opt/poetry" \
+    PATH="$POETRY_HOME/bin:$PATH" \
+    PYTHONUNBUFFERED=1
+
+# Install Poetry
+RUN pip install "poetry==$POETRY_VERSION"
+
+# Create app directory
 WORKDIR /app
 
-# ติดตั้ง dependencies
-COPY pyproject.toml poetry.lock /app/
-RUN pip install poetry && \
-    poetry config virtualenvs.create false && \
-    poetry install --no-root --no-interaction --no-ansi
+# Copy project files
+COPY pyproject.toml poetry.lock ./
 
-# คัดลอกโค้ดแอปทั้งหมด
-COPY . /app
+# Install dependencies (without venv inside container)
+RUN poetry config virtualenvs.create false && poetry install --no-interaction --no-ansi
 
-# ENV vars (แนะนำตั้งใน docker-compose หรือ runtime)
-ENV PYTHONUNBUFFERED=1
+COPY news_digest_mcp_bot ./news_digest_mcp_bot
+COPY .env ./
 
-# รัน main.py เมื่อ container start
-CMD ["python", "main.py"]
+# Run the app
+CMD ["poetry", "run", "python", "news_digest_mcp_bot/main.py"]

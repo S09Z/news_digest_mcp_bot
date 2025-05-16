@@ -2,7 +2,6 @@
 name = "news-digest-mcp-bot"
 version = "0.1.0"
 description = ""
-package-mode = false
 authors = [
     {name = "Ittichai Boonyarakthunya",email = "i.boonyarakthunya@gmail.com"}
 ]

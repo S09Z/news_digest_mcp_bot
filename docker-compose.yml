@@ -1,35 +1,27 @@
 version: "3.8"
 
 services:
-  app:
+  qdrant:
+    image: qdrant/qdrant
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    volumes:
+      - qdrant_data:/qdrant/storage
+
+  news_digest_mcp_bot:
     build: .
-    container_name: news_digest_mcp_bot
     volumes:
       - .:/app
-    working_dir: /app
-    command: poetry run python news_digest_mcp_bot/main.py
+    container_name: news_digest_mcp_bot
+    ports:
+      - "8000:8000"
     environment:
       - THENEWS_API_KEY=${THENEWS_API_KEY}
       - HF_API_TOKEN=${HF_API_TOKEN}
       - DISCORD_WEBHOOK_URL=${DISCORD_WEBHOOK_URL}
       - QDRANT_HOST=qdrant
       - QDRANT_PORT=6333
-    depends_on:
-      - qdrant
-
-  qdrant:
-    image: qdrant/qdrant
-    container_name: qdrant
-    ports:
-      - "6333:6333"
-    volumes:
-      - qdrant_data:/qdrant/storage
-
-  qdrant-dashboard:
-    image: qdrant/qdrant-dashboard
-    container_name: qdrant-dashboard
-    ports:
-      - "8001:80"
     depends_on:
       - qdrant
 
