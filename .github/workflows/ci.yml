@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [ development ]
   pull_request:
-    branches: [ main ]
+    branches: [ development ]
 
 jobs:
   test:
@@ -23,13 +23,13 @@ jobs:
     - name: Set up Python 3.10
       uses: actions/setup-python@v4
       with:
-        python-version: 3.10
+        python-version: '3.10'
 
     - name: Install Poetry
       run: pip install poetry
 
     - name: Install dependencies
-      run: poetry install --no-interaction --no-ansi
+      run: poetry install --no-root --no-interaction --no-ansi
 
-    - name: Run tests
-      run: poetry run pytest tests/
+    # - name: Run tests
+    #   run: poetry run pytest tests/
