@@ -1,4 +1,5 @@
 import logging
+from .constant import THENEWS_API_KEY_ENV
 
 def setup_logger(name: str = __name__, level=logging.INFO):
     """

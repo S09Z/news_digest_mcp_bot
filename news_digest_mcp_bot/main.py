@@ -8,6 +8,7 @@ from app.discord_bot import send_discord_message
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+@node
 def main():
     # โหลดค่า ENV
     news_api_key = os.getenv("THENEWS_API_KEY")

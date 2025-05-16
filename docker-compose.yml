@@ -1,35 +1,37 @@
 version: "3.8"
 
 services:
-  news-digest-bot:
+  app:
     build: .
     container_name: news_digest_mcp_bot
+    volumes:
+      - .:/app
+    working_dir: /app
+    command: poetry run python news_digest_mcp_bot/main.py
     environment:
       - THENEWS_API_KEY=${THENEWS_API_KEY}
       - HF_API_TOKEN=${HF_API_TOKEN}
       - DISCORD_WEBHOOK_URL=${DISCORD_WEBHOOK_URL}
-      - VECTOR_DB_HOST=milvus
-      - VECTOR_DB_PORT=19530
+      - QDRANT_HOST=qdrant
+      - QDRANT_PORT=6333
     depends_on:
-      - milvus
-    restart: unless-stopped
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "10m"
-        max-file: "3"
+      - qdrant
 
-  milvus:
-    image: milvusdb/milvus:v2.2.7
-    container_name: milvus_vector_db
+  qdrant:
+    image: qdrant/qdrant
+    container_name: qdrant
     ports:
-      - "19530:19530"   # gRPC port (client connect)
-      - "19121:19121"   # HTTP RESTful API (optional)
+      - "6333:6333"
     volumes:
-      - milvus_data:/var/lib/milvus
-    environment:
-      TZ: Asia/Bangkok
-    restart: unless-stopped
+      - qdrant_data:/qdrant/storage
+
+  qdrant-dashboard:
+    image: qdrant/qdrant-dashboard
+    container_name: qdrant-dashboard
+    ports:
+      - "8001:80"
+    depends_on:
+      - qdrant
 
 volumes:
-  milvus_data:
+  qdrant_data:

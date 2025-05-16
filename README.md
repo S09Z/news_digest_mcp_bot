@@ -20,7 +20,7 @@ news-digest-mcp-bot/
 │ ├── news_api.py # ดึงข่าวจาก TheNewsAPI
 │ ├── summarizer.py # สรุปข่าวด้วย Huggingface BART model
 │ ├── discord_bot.py # ส่งข้อความข่าวไป Discord Webhook
-│ └── utils.py # ฟังก์ชันช่วยเหลือทั่วไป
+│ └── news_digest_mcp_bot.utils.py # ฟังก์ชันช่วยเหลือทั่วไป
 │
 ├── tests/ # เก็บ unit test (ถ้ามี)
 │ ├── init.py
