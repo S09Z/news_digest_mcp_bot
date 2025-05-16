@@ -1,9 +1,9 @@
 import os
 import logging
-from app.news_api import fetch_latest_news
-from app.summarizer import summarize_text
-from app.discord_bot import send_discord_message
-# from app.vector_store import save_context_to_pinecone  # placeholder
+from news_digest_mcp_bot.news_api import fetch_latest_news
+from news_digest_mcp_bot.summarizer import summarize_text
+from news_digest_mcp_bot.discord_bot import send_discord_message
+# from news_digest_mcp_bot.vector_store import save_context_to_pinecone  # placeholder
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
