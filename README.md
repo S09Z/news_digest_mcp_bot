@@ -6,6 +6,7 @@
 ---
 
 ## Project Workspace Structure
+```
 news-digest-mcp-bot/
 │
 ├── README.md # ไฟล์นี้ - อธิบายโปรเจกต์และการใช้งาน
@@ -26,6 +27,7 @@ news-digest-mcp-bot/
 │ └── test_main.py
 │
 └── data/ # เก็บข้อมูลเสริม เช่น log หรือข่าวเก่า (ถ้ามี)
+```
 
 ---
 
@@ -44,6 +46,7 @@ news-digest-mcp-bot/
 ---
 
 ## Workflow Diagram (MCP Style)
+```
 +-------------------+
 |   User Request    |
 +---------+---------+
@@ -64,3 +67,4 @@ news-digest-mcp-bot/
           +----------------> |  Send Digest to   |
                              |    Discord Bot    |
                              +-------------------+
+```
