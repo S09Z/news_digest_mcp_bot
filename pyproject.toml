@@ -2,18 +2,20 @@
 name = "news-digest-mcp-bot"
 version = "0.1.0"
 description = ""
+package-mode = false
 authors = [
     {name = "Ittichai Boonyarakthunya",email = "i.boonyarakthunya@gmail.com"}
 ]
 license = {text = "MIT"}
-readme = "README.md"
 requires-python = ">=3.10,<4.0"
+packages = [{ include = "news_digest_mcp_bot", from = "." }]
 dependencies = [
     "requests (>=2.32.3,<3.0.0)",
     "huggingface (>=0.0.1,<0.0.2)",
     "pinecone-client (>=6.0.0,<7.0.0)",
     "dvc (>=3.59.2,<4.0.0)",
-    "qdrant-client (>=1.14.2,<2.0.0)"
+    "qdrant-client (>=1.14.2,<2.0.0)",
+    "python-dotenv (>=1.1.0,<2.0.0)"
 ]
 
 

@@ -11,17 +11,20 @@ services:
 
   news_digest_mcp_bot:
     build: .
+    container_name: news_digest_mcp_bot
     volumes:
       - .:/app
-    container_name: news_digest_mcp_bot
+    working_dir: /app
     ports:
       - "8000:8000"
     environment:
+      - PYTHONPATH=/app
       - THENEWS_API_KEY=${THENEWS_API_KEY}
       - HF_API_TOKEN=${HF_API_TOKEN}
       - DISCORD_WEBHOOK_URL=${DISCORD_WEBHOOK_URL}
       - QDRANT_HOST=qdrant
       - QDRANT_PORT=6333
+    command: poetry run python news_digest_mcp_bot/main.py
     depends_on:
       - qdrant
 
