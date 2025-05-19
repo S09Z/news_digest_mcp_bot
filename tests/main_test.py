@@ -1,7 +1,7 @@
 import pytest
-from app.news_api import fetch_latest_news
-from app.summarizer import summarize_text
-from app.discord_bot import send_discord_message
+from news_digest_mcp_bot.news_api import fetch_latest_news
+from news_digest_mcp_bot.summarizer import summarize_text
+from news_digest_mcp_bot.discord_bot import send_discord_message
 
 def test_fetch_latest_news(monkeypatch):
     # Mock requests.get ให้คืนค่าข่าวตัวอย่าง

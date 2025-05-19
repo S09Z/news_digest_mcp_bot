@@ -1,20 +1,24 @@
-# ใช้ official Python 3.10 image
-FROM python:3.10-slim
+FROM python:3.11-slim
 
-# ตั้ง working directory
+RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
+
+RUN curl -sSL https://install.python-poetry.org | python3 -
+ENV PATH="/root/.local/bin:$PATH"
+
 WORKDIR /app
 
-# ติดตั้ง dependencies
-COPY pyproject.toml poetry.lock /app/
-RUN pip install poetry && \
-    poetry config virtualenvs.create false && \
-    poetry install --no-root --no-interaction --no-ansi
+# ✅ คัดลอกเฉพาะไฟล์ config ก่อน เพื่อใช้ cache ได้ดี
+COPY pyproject.toml poetry.lock* /app/
 
-# คัดลอกโค้ดแอปทั้งหมด
+# ✅ ติดตั้ง dependencies แบบไม่มี virtualenv
+RUN poetry config virtualenvs.create false \
+ && poetry install --no-interaction --no-ansi --no-root
+
+# ✅ คัดลอก source code หลังสุด เพื่อไม่ให้ cache invalidated
 COPY . /app
 
-# ENV vars (แนะนำตั้งใน docker-compose หรือ runtime)
-ENV PYTHONUNBUFFERED=1
+ENV PYTHONPATH=/app
 
-# รัน main.py เมื่อ container start
-CMD ["python", "main.py"]
+
+# ✅ ใช้ PYTHONPATH เฉพาะในขั้น run (ไม่ต้อง set ENV ถาวร)
+CMD ["python", "news_digest_mcp_bot/main.py"]

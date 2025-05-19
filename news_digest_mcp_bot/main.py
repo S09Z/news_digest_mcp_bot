@@ -1,19 +1,22 @@
 import os
 import logging
-from app.news_api import fetch_latest_news
-from app.summarizer import summarize_text
-from app.discord_bot import send_discord_message
-# from app.vector_store import save_context_to_pinecone  # placeholder
+from news_digest_mcp_bot.news_api import fetch_latest_news
+from news_digest_mcp_bot.summarizer import summarize_text
+from news_digest_mcp_bot.discord_bot import send_discord_message
+
+from dotenv import load_dotenv
+load_dotenv()
+
+# from news_digest_mcp_bot.vector_store import save_context_to_pinecone  # placeholder
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-def main():
-    # โหลดค่า ENV
-    news_api_key = os.getenv("THENEWS_API_KEY")
-    discord_webhook = os.getenv("DISCORD_WEBHOOK_URL")
-    hf_api_token = os.getenv("HF_API_TOKEN")
+news_api_key = os.getenv("THENEWS_API_KEY")
+discord_webhook = os.getenv("DISCORD_WEBHOOK_URL")
+hf_api_token = os.getenv("HF_API_TOKEN")
 
+def main():
     if not news_api_key or not discord_webhook or not hf_api_token:
         logger.error("Missing one or more required environment variables.")
         return

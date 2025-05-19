@@ -3,6 +3,7 @@ NEWS_API_BASE_URL = "https://api.thenewsapi.com/v1/news/top"
 NEWS_API_LANGUAGE = "en"
 NEWS_API_COUNTRIES = "us"
 NEWS_API_CATEGORIES = "tech"
+NEWS_API_LIMIT = 5
 
 # Huggingface Model
 HF_MODEL_NAME = "facebook/bart-large-cnn"
